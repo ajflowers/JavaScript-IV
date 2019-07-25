@@ -17,10 +17,27 @@ class Instructor extends Person {
         this.catchPhrase = attributes.catchPhrase;
     }
     demo(subject) {
-        console.log (`Today we are learning about ${subject}.`);
+        console.log(`Today we are learning about ${subject}.`);
     }
     grade(student, subject) {
-        console.log (`${student.name} receives a perfect score on ${subject}.`);
+        console.log(`${student.name} receives a perfect score on ${subject}.`);
+    }
+    tests(student) {
+        if (Math.random() < 0.6) {
+            let points = Math.floor(Math.random() * 4 + 2);
+            student.grade += points;
+            console.log(`${this.name} adds ${points} points to ${student.name}'s grade`);
+        } else {
+            let points = Math.floor(Math.random() * 3 + 1);
+            if (points < student.grade) {
+                student.grade -= points;
+                console.log(`Oh noes! ${this.name} deducts ${points} points from ${student.name}'s grade`);
+            } else {
+                student.grade = 0;
+                console.log(`Oh geez this is bad, this is so bad, ${student.name} just screwed up so hard that ${this.name} said "go start everything all over!"`)
+            }
+                
+        }
     }
 }
 
@@ -29,7 +46,8 @@ class Student extends Person {
         super(attributes);
         this.previousBackground = attributes.previousBackground;
         this.className = attributes.className;
-        this.favSubjects = attributes.favSubjects;        
+        this.favSubjects = attributes.favSubjects;
+        this.grade = attributes.grade;        
     }
     listsSubjects() {
             this.favSubjects.forEach(function(subject) {
@@ -41,6 +59,14 @@ class Student extends Person {
     }
     sprintChallenge(subject) {
         console.log(`${this.name} has begun sprint challenge on ${subject}.`);    
+    }
+    graduate() {
+        if (this.grade > 70) {
+            console.log(this.name + " is ready to graduate Lambda School!");
+        } else {
+            console.log(`${this.name} isn't quite ready to graduate. Only ${71 - this.grade} points to go!`);
+
+        }
     }
 }
 
@@ -99,7 +125,8 @@ const ang = new Student({
     location: "Pittsburgh",
     previousBackground: "SharePoint janitor",
     className: "WEB22",
-    favSubjects: ["JavaScript", "CSS"]    
+    favSubjects: ["JavaScript", "CSS"],
+    grade: 50    
 });
 ang.speak();
 
@@ -109,7 +136,8 @@ const bob = new Student({
     location: "Peoria, IL",
     previousBackground: "chef",
     className: "WEB20",
-    favSubjects: ["Javascript", "SQL", "C"]    
+    favSubjects: ["Javascript", "SQL", "C"],
+    grade: 3
 })
 bob.listsSubjects();
 
@@ -119,7 +147,8 @@ const carol = new Student({
     location: "Chicago",
     previousBackground: "loan officer",
     className: "UX Design",
-    favSubjects: ["CSS", "design", "measuring pixels with a ruler"]    
+    favSubjects: ["CSS", "design", "measuring pixels with a ruler"],
+    grade: 75    
 });
 
 ang.PRAssignment("JavaScript IV");
@@ -172,4 +201,24 @@ const ginger = new ProjectManager({
 
 fred.favInstructor.speak();
 fred.standUp();
-fred.debugsCode(bob);
+fred.debugsCode(bob, "a big mess of prototype declarations");
+
+bob.graduate();
+carol.graduate();
+
+ginger.tests(bob);
+
+fred.tests(ang);
+ginger.tests(ang);
+dave.tests(ang);
+emma.tests(ang);
+ang.graduate();
+fred.tests(ang);
+fred.tests(ang);
+fred.tests(ang);
+fred.tests(ang);
+ang.graduate();
+fred.tests(ang);
+fred.tests(ang);
+fred.tests(ang);
+ang.graduate();
