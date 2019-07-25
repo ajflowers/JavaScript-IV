@@ -143,6 +143,11 @@ const emma = new Instructor({
     catchPhrase: "Of course, that's just my opinion",
 });
 
+console.log(JSON.stringify(dave));
+dave.demo("CSS");
+emma.grade(ang, "JavaScript IV");
+
+
 const fred = new ProjectManager({
     name: "Fred",
     age: 40,
@@ -165,3 +170,6 @@ const ginger = new ProjectManager({
     favInstructor: emma
 });
 
+fred.favInstructor.speak();
+fred.standUp();
+fred.debugsCode(bob);
